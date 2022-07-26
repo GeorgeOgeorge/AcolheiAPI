@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from .service import CardService, ElementoComunicativoService
 from .models import Atendimento, Card, Paciente, Preceptor, Roteiro, ElementoComunicativo
+from django.core import serializers as sr
 
 from .utils import checkresult
 
@@ -83,7 +84,7 @@ class CardSerializer(serializers.ModelSerializer):
     def get_titulo(self, obj):
         elemento = ElementoComunicativo.objects.filter(id=obj.titulo_id).first()
         if(elemento != None):
-            return serializers.serialize('json', elemento.get_queryset())
+            return sr.serialize('json', elemento.get_queryset())
 
     def get_descricao(self, obj):
         elemento = ElementoComunicativo.objects.filter(id=obj.descricao_id).first()
