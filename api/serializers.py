@@ -86,7 +86,7 @@ class CardSerializer(serializers.ModelSerializer):
         if(elemento != None):
             #fields
             return {
-                id: elemento.id
+                'id': elemento.id
             }
 
     def get_descricao(self, obj):
