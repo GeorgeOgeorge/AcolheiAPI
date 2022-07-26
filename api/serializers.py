@@ -86,7 +86,13 @@ class CardSerializer(serializers.ModelSerializer):
         if(elemento != None):
             #fields
             return {
-                'id': elemento.id
+                'id': elemento.id, 
+                'texto':elemento.texto,
+                'figura':elemento.figura,
+                'libras':elemento.libras,
+                'audioDescricao':elemento.audioDescricao,
+                'data':elemento.data,
+                'tipo':elemento.tipo
             }
 
     def get_descricao(self, obj):
