@@ -98,14 +98,30 @@ class CardSerializer(serializers.ModelSerializer):
     def get_descricao(self, obj):
         elemento = ElementoComunicativo.objects.filter(id=obj.descricao_id).first()
         if(elemento != None):
-            return elemento.id
+            return {
+                'id': elemento.id, 
+                'texto':elemento.texto,
+                'figura':elemento.figura,
+                'libras':elemento.libras,
+                'audioDescricao':elemento.audioDescricao,
+                'data':elemento.data,
+                'tipo':elemento.tipo
+            }
 
     def get_opcoes(self, obj):
         final_opcoes = []
         opcoes = ElementoComunicativo.objects.filter(card_opcao__id=obj.id)
         if(opcoes != None):
             for opcao in opcoes:
-                final_opcoes.append(opcao.id)
+                final_opcoes.append({
+                'id': opcao.id, 
+                'texto':opcao.texto,
+                'figura':opcao.figura,
+                'libras':opcao.libras,
+                'audioDescricao':opcao.audioDescricao,
+                'data':opcao.data,
+                'tipo':opcao.tipo
+            })
             return final_opcoes
 
 
