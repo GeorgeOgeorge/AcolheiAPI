@@ -84,6 +84,7 @@ class CardSerializer(serializers.ModelSerializer):
     def get_titulo(self, obj):
         elemento = ElementoComunicativo.objects.filter(id=obj.titulo_id).first()
         if(elemento != None):
+            #fields
             return {
                 id: elemento.id
             }
