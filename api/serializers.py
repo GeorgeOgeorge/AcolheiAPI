@@ -188,8 +188,24 @@ class RoteiroSerializer(serializers.ModelSerializer):
                         })
                 cards.append({
                     'id': card.id, 
-                    'titulo':card.titulo,
-                    'descricao':card.descricao,
+                    'titulo':{
+                            'id': card.titulo.id, 
+                            'texto':card.titulo.texto,
+                            'figura':card.titulo.figura,
+                            'libras':card.titulo.libras,
+                            'audioDescricao':card.titulo.audioDescricao,
+                            'data':card.titulo.data,
+                            'tipo':card.titulo.tipo
+                        },
+                    'descricao':{
+                            'id': card.descricao.id, 
+                            'texto':card.descricao.texto,
+                            'figura':card.descricao.figura,
+                            'libras':card.descricao.libras,
+                            'audioDescricao':card.descricao.audioDescricao,
+                            'data':card.descricao.data,
+                            'tipo':card.descricao.tipo
+                        },
                     'opcoes': opcoes,
                     'data':card.data
                 })
