@@ -144,15 +144,37 @@ class RoteiroSerializer(serializers.ModelSerializer):
 
     def get_titulo(self, obj):
         result = ElementoComunicativoService.find_elemento_by_id(obj.titulo_id)
-        return result.id  
+        return {
+                'id': result.id, 
+                'texto':result.texto,
+                'figura':result.figura,
+                'libras':result.libras,
+                'audioDescricao':result.audioDescricao,
+                'data':result.data,
+                'tipo':result.tipo
+            }
+
 
     def get_descricao(self, obj):
         result = ElementoComunicativoService.find_elemento_by_id(obj.descricao_id)
-        return result.id
+        return {
+                'id': result.id, 
+                'texto':result.texto,
+                'figura':result.figura,
+                'libras':result.libras,
+                'audioDescricao':result.audioDescricao,
+                'data':result.data,
+                'tipo':result.tipo
+            }
 
     def get_cards(self, obj):
         result = CardService.find_cards_by_roteiro_id(obj.id)
-        return [card.id for card in result]
+        return [{'id': card.id, 
+                 'titulo':card.titulo,
+                 'descricao':card.descricao,
+                 'opcoes':card.opcoes,
+                 'data':card.data}
+               for card in result]
 
 
 class PacienteSerializer(serializers.ModelSerializer):
