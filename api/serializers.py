@@ -168,21 +168,32 @@ class RoteiroSerializer(serializers.ModelSerializer):
             }
 
     def get_cards(self, obj):
+        cards = []
         result = CardService.find_cards_by_roteiro_id(obj.id)
-        return [{'id': card.id, 
-                 'titulo':card.titulo,
-                 'descricao':card.descricao,
-                 'opcoes': [{
-                'id': opcao.id, 
-                'texto':opcao.texto,
-                'figura':opcao.figura,
-                'libras':opcao.libras,
-                'audioDescricao':opcao.audioDescricao,
-                'data':opcao.data,
-                'tipo':opcao.tipo
-            } for opcao in card.opcoes],
-                 'data':card.data}
-               for card in result]
+
+        if(result != None):
+            for card in result:
+                
+                opcoes = []
+                if(card.opcoes != None):
+                    for opcao in opcoes:
+                        opcoes.append({
+                            'id': opcao.id, 
+                            'texto':opcao.texto,
+                            'figura':opcao.figura,
+                            'libras':opcao.libras,
+                            'audioDescricao':opcao.audioDescricao,
+                            'data':opcao.data,
+                            'tipo':opcao.tipo
+                        })
+                cards.append({
+                    'id': card.id, 
+                    'titulo':card.titulo,
+                    'descricao':card.descricao,
+                    'opcoes': opcoes,
+                    'data':card.data
+                })
+        return cards
 
 
 class PacienteSerializer(serializers.ModelSerializer):
