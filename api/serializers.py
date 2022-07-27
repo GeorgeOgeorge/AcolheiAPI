@@ -172,7 +172,15 @@ class RoteiroSerializer(serializers.ModelSerializer):
         return [{'id': card.id, 
                  'titulo':card.titulo,
                  'descricao':card.descricao,
-                 'opcoes':card.opcoes,
+                 'opcoes': [{
+                'id': opcao.id, 
+                'texto':opcao.texto,
+                'figura':opcao.figura,
+                'libras':opcao.libras,
+                'audioDescricao':opcao.audioDescricao,
+                'data':opcao.data,
+                'tipo':opcao.tipo
+            } for opcao in card.opcoes],
                  'data':card.data}
                for card in result]
 
