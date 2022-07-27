@@ -176,7 +176,7 @@ class RoteiroSerializer(serializers.ModelSerializer):
                 
                 opcoes = []
                 if(card.opcoes != None):
-                    for opcao in opcoes:
+                    for opcao in card.opcoes:
                         opcoes.append({
                             'id': opcao.id, 
                             'texto':opcao.texto,
