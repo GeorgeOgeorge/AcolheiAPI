@@ -232,8 +232,8 @@ class PacienteSerializer(serializers.ModelSerializer):
 
 class AtendimentoSerializer(serializers.ModelSerializer):
 
-    card = serializers.SerializerMethodField()
     opcao = serializers.SerializerMethodField()
+    card = serializers.SerializerMethodField()
 
     class Meta:
         model = Atendimento
@@ -247,7 +247,8 @@ class AtendimentoSerializer(serializers.ModelSerializer):
         ]
 
     def get_opcao(self, obj):
-        result = ElementoComunicativoService.find_elemento_by_id(obj.opcao_id)
+        result = ElementoComunicativo.objects.filter(atendimento_opcao=obj.id).first()
+
         return {
                 'id': result.id, 
                 'texto':result.texto,
@@ -259,8 +260,8 @@ class AtendimentoSerializer(serializers.ModelSerializer):
             }
 
     def get_card(self, obj):
-        result = ElementoComunicativoService.find_elemento_by_id(obj.card_id)
-
+        result = Card.objects.filter(atendimento__id=obj.id).first()
+        
         return {
             'id': result.id, 
             'titulo':{
