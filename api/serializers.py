@@ -232,6 +232,9 @@ class PacienteSerializer(serializers.ModelSerializer):
 
 class AtendimentoSerializer(serializers.ModelSerializer):
 
+    card = serializers.SerializerMethodField()
+    opcao = serializers.SerializerMethodField()
+
     class Meta:
         model = Atendimento
         fields = [
@@ -242,3 +245,53 @@ class AtendimentoSerializer(serializers.ModelSerializer):
             'card',
             'opcao'
         ]
+
+    def get_opcao(self, obj):
+        result = ElementoComunicativoService.find_elemento_by_id(obj.opcao_id)
+        return {
+                'id': result.id, 
+                'texto':result.texto,
+                'figura':result.figura,
+                'libras':result.libras,
+                'audioDescricao':result.audioDescricao,
+                'data':result.data,
+                'tipo':result.tipo
+            }
+
+    def get_card(self, card):
+        opcoes = []
+        if(card.opcoes.all() != None):
+            for opcao in card.opcoes.all():
+                opcoes.append({
+                    'id': opcao.id, 
+                    'texto':opcao.texto,
+                    'figura':opcao.figura,
+                    'libras':opcao.libras,
+                    'audioDescricao':opcao.audioDescricao,
+                    'data':opcao.data,
+                    'tipo':opcao.tipo
+                })
+                
+        return {
+            'id': card.id, 
+            'titulo':{
+                    'id': card.titulo.id, 
+                    'texto':card.titulo.texto,
+                    'figura':card.titulo.figura,
+                    'libras':card.titulo.libras,
+                    'audioDescricao':card.titulo.audioDescricao,
+                    'data':card.titulo.data,
+                    'tipo':card.titulo.tipo
+                },
+            'descricao':{
+                    'id': card.descricao.id, 
+                    'texto':card.descricao.texto,
+                    'figura':card.descricao.figura,
+                    'libras':card.descricao.libras,
+                    'audioDescricao':card.descricao.audioDescricao,
+                    'data':card.descricao.data,
+                    'tipo':card.descricao.tipo
+                },
+            'opcoes': opcoes,
+            'data':card.data
+        }
