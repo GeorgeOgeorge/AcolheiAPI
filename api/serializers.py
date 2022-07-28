@@ -259,19 +259,6 @@ class AtendimentoSerializer(serializers.ModelSerializer):
             }
 
     def get_card(self, obj):
-        opcoes = []
-        if(obj.opcoes.all() != None):
-            for opcao in obj.opcoes.all():
-                opcoes.append({
-                    'id': opcao.id, 
-                    'texto':opcao.texto,
-                    'figura':opcao.figura,
-                    'libras':opcao.libras,
-                    'audioDescricao':opcao.audioDescricao,
-                    'data':opcao.data,
-                    'tipo':opcao.tipo
-                })
-
         return {
             'id': obj.id, 
             'titulo':{
@@ -292,6 +279,6 @@ class AtendimentoSerializer(serializers.ModelSerializer):
                     'data':obj.descricao.data,
                     'tipo':obj.descricao.tipo
                 },
-            'opcoes': opcoes,
+            'opcoes': None,
             'data':obj.data
         }
