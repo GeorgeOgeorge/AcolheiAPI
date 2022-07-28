@@ -94,11 +94,21 @@ class RoteiroService():
 
 class AtendimentoService():
 
-    def create_atendimento(card, opcao):
-        atendimento = Roteiro.objects.create()
-        atendimento.texto = "titulo"
-        atendimento.paciente = Paciente.objects.first()
-        atendimento.cards.set([card])
-        atendimento.opcao.set([opcao])
+    def create_atendimento(texto, lista_pacientes, lista_cards, lista_opcaoes):
+        atendimento = Atendimento.objects.create()
+        atendimento.texto = texto
+        atendimento.paciente.set(lista_pacientes)
+        atendimento.card.set(lista_cards)
+        atendimento.opcao.set(lista_opcaoes)
         atendimento.save()
         return atendimento
+
+class PacienteService():
+
+    def find_paciente_by_id(paciente_id):
+        result = Paciente.objects.filter(pk=paciente_id)
+        return checkresult(result)
+        
+    def find_pacientes_list_by_id(id_list):
+        result = Paciente.objects.filter(pk__in=id_list)
+        return result if checkresult(result) else []
