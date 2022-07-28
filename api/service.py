@@ -99,6 +99,6 @@ class AtendimentoService():
         atendimento.texto = "titulo"
         atendimento.paciente = Paciente.objects.first()
         atendimento.cards.set([card])
-        atendimento.cards.set([opcao])
+        atendimento.opcao.set([opcao])
         atendimento.save()
         return atendimento
