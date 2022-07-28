@@ -258,10 +258,10 @@ class AtendimentoSerializer(serializers.ModelSerializer):
                 'tipo':result.tipo
             }
 
-    def get_card(self, card):
+    def get_card(self, obj):
         opcoes = []
-        if(card.opcoes.all() != None):
-            for opcao in card.opcoes.all():
+        if(obj.opcoes.all() != None):
+            for opcao in obj.opcoes.all():
                 opcoes.append({
                     'id': opcao.id, 
                     'texto':opcao.texto,
@@ -271,27 +271,27 @@ class AtendimentoSerializer(serializers.ModelSerializer):
                     'data':opcao.data,
                     'tipo':opcao.tipo
                 })
-                
+
         return {
-            'id': card.id, 
+            'id': obj.id, 
             'titulo':{
-                    'id': card.titulo.id, 
-                    'texto':card.titulo.texto,
-                    'figura':card.titulo.figura,
-                    'libras':card.titulo.libras,
-                    'audioDescricao':card.titulo.audioDescricao,
-                    'data':card.titulo.data,
-                    'tipo':card.titulo.tipo
+                    'id': obj.titulo.id, 
+                    'texto':obj.titulo.texto,
+                    'figura':obj.titulo.figura,
+                    'libras':obj.titulo.libras,
+                    'audioDescricao':obj.titulo.audioDescricao,
+                    'data':obj.titulo.data,
+                    'tipo':obj.titulo.tipo
                 },
             'descricao':{
-                    'id': card.descricao.id, 
-                    'texto':card.descricao.texto,
-                    'figura':card.descricao.figura,
-                    'libras':card.descricao.libras,
-                    'audioDescricao':card.descricao.audioDescricao,
-                    'data':card.descricao.data,
-                    'tipo':card.descricao.tipo
+                    'id': obj.descricao.id, 
+                    'texto':obj.descricao.texto,
+                    'figura':obj.descricao.figura,
+                    'libras':obj.descricao.libras,
+                    'audioDescricao':obj.descricao.audioDescricao,
+                    'data':obj.descricao.data,
+                    'tipo':obj.descricao.tipo
                 },
             'opcoes': opcoes,
-            'data':card.data
+            'data':obj.data
         }
