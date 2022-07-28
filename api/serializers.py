@@ -259,26 +259,28 @@ class AtendimentoSerializer(serializers.ModelSerializer):
             }
 
     def get_card(self, obj):
+        result = ElementoComunicativoService.find_elemento_by_id(obj.card_id)
+
         return {
-            'id': obj.id, 
+            'id': result.id, 
             'titulo':{
-                    'id': obj.titulo.id, 
-                    'texto':obj.titulo.texto,
-                    'figura':obj.titulo.figura,
-                    'libras':obj.titulo.libras,
-                    'audioDescricao':obj.titulo.audioDescricao,
-                    'data':obj.titulo.data,
-                    'tipo':obj.titulo.tipo
+                    'id': result.titulo.id, 
+                    'texto':result.titulo.texto,
+                    'figura':result.titulo.figura,
+                    'libras':result.titulo.libras,
+                    'audioDescricao':result.titulo.audioDescricao,
+                    'data':result.titulo.data,
+                    'tipo':result.titulo.tipo
                 },
             'descricao':{
-                    'id': obj.descricao.id, 
-                    'texto':obj.descricao.texto,
-                    'figura':obj.descricao.figura,
-                    'libras':obj.descricao.libras,
-                    'audioDescricao':obj.descricao.audioDescricao,
-                    'data':obj.descricao.data,
-                    'tipo':obj.descricao.tipo
+                    'id': result.descricao.id, 
+                    'texto':result.descricao.texto,
+                    'figura':result.descricao.figura,
+                    'libras':result.descricao.libras,
+                    'audioDescricao':result.descricao.audioDescricao,
+                    'data':result.descricao.data,
+                    'tipo':result.descricao.tipo
                 },
             'opcoes': None,
-            'data':obj.data
+            'data':result.data
         }
