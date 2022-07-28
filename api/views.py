@@ -73,9 +73,9 @@ class AtendimentoViewSet(viewsets.ModelViewSet):
     serializer_class = AtendimentoSerializer
 
     def create(self, request):
-        card = Card.objects.filter(id = request.data['card']).first()
-        opcao = ElementoComunicativo.objects.filter(id= request.data['opcao']).first()
-        result = AtendimentoService.create_atendimento(card, opcao)
+        cards = Card.objects.filter(id = request.data['card']).toList()
+        opcoes = ElementoComunicativo.objects.filter(id = request.data['opcao']).toList()
+        result = AtendimentoService.create_atendimento("aaa", [Paciente.objects.first()], cards, opcoes)
         serializer = self.get_serializer(result)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
