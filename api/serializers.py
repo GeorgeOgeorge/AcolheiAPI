@@ -143,7 +143,7 @@ class RoteiroSerializer(serializers.ModelSerializer):
         ]
 
     def get_titulo(self, obj):
-        result = ElementoComunicativoService.find_elemento_by_id(obj.titulo_id)
+        result = ElementoComunicativo.objects.filter(id= obj.titulo_id).first()
         return {
                 'id': result.id, 
                 'texto':result.texto,
@@ -156,7 +156,7 @@ class RoteiroSerializer(serializers.ModelSerializer):
 
 
     def get_descricao(self, obj):
-        result = ElementoComunicativoService.find_elemento_by_id(obj.descricao_id)
+        result = ElementoComunicativo.objects.filter(id= obj.titulo_id).first()
         return {
                 'id': result.id, 
                 'texto':result.texto,
