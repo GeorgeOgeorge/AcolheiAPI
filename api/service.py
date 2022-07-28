@@ -91,3 +91,14 @@ class RoteiroService():
     def find_roteiro_by_id(roteiro_id):
         result = Roteiro.objects.filter(pk=roteiro_id)
         return result
+
+class AtendimentoService():
+
+    def create_atendimento(card, opcao):
+        atendimento = Roteiro.objects.create()
+        atendimento.texto = "titulo"
+        atendimento.paciente = Paciente.objects.first()
+        atendimento.cards.set([card])
+        atendimento.cards.set([opcao])
+        atendimento.save()
+        return atendimento

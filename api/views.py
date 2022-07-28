@@ -6,7 +6,7 @@ from rest_framework import status
 from .models import Atendimento, Card, ElementoComunicativo, Paciente, Preceptor, Roteiro
 from .serializers import PreceptorSerializer, CardSerializer, RoteiroSerializer, AtendimentoSerializer, ElementoComunicativoSerializer, PacienteSerializer, AutenticacaoSerializer
 from .permissions import UserLoginPermission
-from .service import CardService, PreceptorService, ElementoComunicativoService, RoteiroService
+from .service import AtendimentoService, CardService, PreceptorService, ElementoComunicativoService, RoteiroService
 from .utils import checkresult
 
 @api_view(['POST'])
@@ -71,6 +71,14 @@ class RoteiroViewSet(viewsets.ModelViewSet):
 class AtendimentoViewSet(viewsets.ModelViewSet):
     queryset = Atendimento.objects.all()
     serializer_class = AtendimentoSerializer
+
+    def create(self, request):
+        card = Card.objects.filter(id = request.data['card']).first()
+        opcao = ElementoComunicativo.objects.filter(id= request.data['opcao']).first()
+        result = AtendimentoService.create_atendimento(card, opcao)
+        serializer = self.get_serializer(result)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 
 class PacienteViewSet(viewsets.ModelViewSet):

@@ -249,7 +249,8 @@ class AtendimentoSerializer(serializers.ModelSerializer):
     def get_opcao(self, obj):
         result = ElementoComunicativo.objects.filter(atendimento_opcao=obj.id).first()
 
-        return {
+        if result is not None:
+            return {
                 'id': result.id, 
                 'texto':result.texto,
                 'figura':result.figura,
@@ -261,27 +262,27 @@ class AtendimentoSerializer(serializers.ModelSerializer):
 
     def get_card(self, obj):
         result = Card.objects.filter(atendimento__id=obj.id).first()
-        
-        return {
-            'id': result.id, 
-            'titulo':{
-                    'id': result.titulo.id, 
-                    'texto':result.titulo.texto,
-                    'figura':result.titulo.figura,
-                    'libras':result.titulo.libras,
-                    'audioDescricao':result.titulo.audioDescricao,
-                    'data':result.titulo.data,
-                    'tipo':result.titulo.tipo
-                },
-            'descricao':{
-                    'id': result.descricao.id, 
-                    'texto':result.descricao.texto,
-                    'figura':result.descricao.figura,
-                    'libras':result.descricao.libras,
-                    'audioDescricao':result.descricao.audioDescricao,
-                    'data':result.descricao.data,
-                    'tipo':result.descricao.tipo
-                },
-            'opcoes': None,
-            'data':result.data
+        if result is not None:
+            return {
+                'id': result.id, 
+                'titulo':{
+                        'id': result.titulo.id, 
+                        'texto':result.titulo.texto,
+                        'figura':result.titulo.figura,
+                        'libras':result.titulo.libras,
+                        'audioDescricao':result.titulo.audioDescricao,
+                        'data':result.titulo.data,
+                        'tipo':result.titulo.tipo
+                    },
+                'descricao':{
+                        'id': result.descricao.id, 
+                        'texto':result.descricao.texto,
+                        'figura':result.descricao.figura,
+                        'libras':result.descricao.libras,
+                        'audioDescricao':result.descricao.audioDescricao,
+                        'data':result.descricao.data,
+                        'tipo':result.descricao.tipo
+                    },
+                'opcoes': None,
+                'data':result.data
         }
